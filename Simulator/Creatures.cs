@@ -13,7 +13,6 @@ public class Creatures
 
     }
 
-
     public Creatures (){}
 
     public string Info
