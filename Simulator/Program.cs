@@ -1,8 +1,31 @@
-﻿namespace Simulator;
+﻿using static Simulator.Directions;
+
+namespace Simulator;
 
 internal class Program
 {
+    static void Lab3b()
+    {
+        Creatures c = new("Shrek", 7);
+        c.SayHi();
 
+        Console.WriteLine("\n* Up");
+        c.Go(Direction.Up);
+
+        Console.WriteLine("\n* Right, Left, Left, Down");
+        Direction[] directions = {
+        Direction.Right, Direction.Left, Direction.Left, Direction.Down
+    };
+        c.Go(directions);
+
+        Console.WriteLine("\n* LRL");
+        c.Go("LRL");
+
+        Console.WriteLine("\n* xxxdR lyyLTyu");
+        c.Go("xxxdR lyyLTyu");
+    }
+
+    
     static void Lab3a()
     {
         Creatures c = new() { Name = "   Shrek    ", Level = 20 };
@@ -38,7 +61,7 @@ internal class Program
     }
     static void Main(string[] args)
     {
-        Lab3a();
+        Lab3b();
     }
 
 

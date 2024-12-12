@@ -1,6 +1,7 @@
 ﻿
 using System.ComponentModel.Design;
 using System.Reflection.Metadata.Ecma335;
+using static Simulator.Directions;
 
 namespace Simulator;
 
@@ -51,12 +52,6 @@ public class Creatures
     }
 
 
-    public void Upgrade()
-    {
-        if (level < 10) { level += 1; }
-
-    }
-
 
     public Creatures(string name, int level = 1)
     {
@@ -77,7 +72,32 @@ public class Creatures
         Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
     }
 
+    public void Upgrade()
+    {
+        if (level < 10) { level += 1; }
 
+    }
 
+    public void Go(Direction direction)
+    {
+        Console.WriteLine($"{Name} goes {direction.ToString().ToLower()}.");
+    }
+    public void Go(Direction[] direction)
+    {
+        foreach (var Directions in direction)
+        {
+            Go(Directions);
+        }
+
+    }
+    public void Go(string directions)
+    {
+        var parse = DirectionParser.Parse(directions);
+        Go(parse);
+    }
 }
+
+
+
+
 
