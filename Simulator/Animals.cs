@@ -8,35 +8,31 @@ namespace Simulator;
 public class Animals
 {
     private string description = "Unknown";
+
+
+        public override string ToString()
+    {
+        Type objtype = this.GetType();
+        string temp = objtype.Name;
+        string temp2 = Info;
+        string value = temp.ToUpper() + ": " + temp2;
+        return value;   
+    }
+
+
     public required string Description {
         get { return description; }
         init
         {
-                string a = value.Trim();
-                value = a;
-                if (value.Length < 3)
-                {
-                    for (int i = value.Length; i <= 2; i++)
-                    {
-                        value += "#";
-                    }
-
-                }
-                else if (value.Length > 15)
-                {
-                    value = value.Substring(0, 15);
-                    value = value.Trim();
-                }
-                string temp = value.Substring(0, 1);
-                description = temp.ToUpper() + value.Substring(1, value.Length - 1);
-
+            description = Validator.Shortener(value, 3, 15, '#');
         }
         }
     public uint Size { get; set; } = 3;
 
-    public string Info
+    public virtual string Info
     {
-        get { return $"{Description} [{Size}]"; }
+        get { return $"{Description} <{Size}>"; }
+        set { }
     }
 
 

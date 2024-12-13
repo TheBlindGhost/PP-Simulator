@@ -19,9 +19,7 @@ public class Orc : Creatures
         get { return rage; }
         init
         {
-            if (value < 0) rage = 0;
-            else if (value > 10) rage = 10;
-            else rage = value;
+            rage = Validator.Limiter(value, 0, 10);
         }
             
     }
@@ -54,6 +52,12 @@ public class Orc : Creatures
     {
         Pow = (Level * 7) + (3 * Rage);
         Console.WriteLine(Pow);
+    }
+
+    public override string Info()
+    {
+        string temp = $"{Name} [{Level}] [{Rage}]";
+        return temp;
     }
 
 

@@ -12,6 +12,16 @@ public abstract class Creatures
     private int level = 1;
     private int power = 0;
 
+    public override string ToString()
+    {
+        Type objtype = this.GetType();
+        string temp = objtype.Name;
+        string temp2 = this.Info();
+        string value = temp.ToUpper() + ": " + temp2;
+        return value;   
+    }
+
+
     public int Pow { 
         get {  return power; }
         set {  power = value; } 
@@ -22,23 +32,7 @@ public abstract class Creatures
         get { return name; }
         init
         {
-
-                value = value.Trim();
-                if (value.Length < 3)
-                {
-                    for (int i = value.Length; i <= 2; i++)
-                    {
-                        value += "#";
-                    }
-
-                }
-                else if (value.Length > 25)
-                {
-                    value = value.Substring(0, 25);
-                    value = value.Trim();
-                }
-                string temp = value.Substring(0, 1);
-                name = temp.ToUpper() + value.Substring(1, value.Length - 1);
+            name = Validator.Shortener(value, 3, 25, '#');
 
         }
     }
@@ -49,9 +43,7 @@ public abstract class Creatures
         get { return level; }
         init
         {
-                if (value < 1) { level = 1; }
-                else if (value > 10) { level = 10; }
-                else { level = value; }
+            level = Validator.Limiter(value, 0, 10);
 
         }
 
@@ -69,10 +61,7 @@ public abstract class Creatures
 
     public Creatures() { }
 
-    public string Info
-    {
-        get { return $"{Name} [{Level}]"; }
-    }
+    public abstract string Info();
 
     public abstract void SayHi();
 

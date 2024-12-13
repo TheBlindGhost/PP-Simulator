@@ -17,9 +17,7 @@ public class Elf : Creatures
         get { return agility; }
         init
         {
-            if (value < 0) agility = 0;
-            else if (value > 10) agility = 10;
-            else agility = value;
+            agility = Validator.Limiter(value, 0, 10);
         }
     }
 
@@ -45,6 +43,11 @@ public class Elf : Creatures
         Console.WriteLine(Pow);
     }
 
+    public override string Info()
+    {
+       string temp = $"{Name} [{Level}] [{Agility}]";
+       return temp;
+    }
 
 
     public Elf() { }
