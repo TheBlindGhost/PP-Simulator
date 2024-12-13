@@ -5,11 +5,18 @@ using static Simulator.Directions;
 
 namespace Simulator;
 
-public class Creatures
+public abstract class Creatures
 {
 
     private string name = "Unknown";
     private int level = 1;
+    private int power = 0;
+
+    public int Pow { 
+        get {  return power; }
+        set {  power = value; } 
+    }
+
     public string? Name
     {
         get { return name; }
@@ -67,11 +74,9 @@ public class Creatures
         get { return $"{Name} [{Level}]"; }
     }
 
-    public void SayHi()
-    {
-        Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
-    }
+    public abstract void SayHi();
 
+    public abstract void Power();
     public void Upgrade()
     {
         if (level < 10) { level += 1; }
