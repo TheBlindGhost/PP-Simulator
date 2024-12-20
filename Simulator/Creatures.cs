@@ -104,7 +104,7 @@ public abstract class Creatures
                 case Direction.Right: return new Point(X + 1, Y);
                 case Direction.Left: return new Point(X - 1, Y);
                 case Direction.Up: return new Point(X, Y + 1);
-                case Direction.Down: return new Point(X, Y + 1);
+                case Direction.Down: return new Point(X, Y - 1);
                 default: return new Point(X, Y);
             }
 

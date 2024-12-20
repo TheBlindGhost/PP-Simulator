@@ -1,5 +1,7 @@
-﻿using static Simulator.Creatures;
+﻿using Simulator.Map;
+using static Simulator.Creatures;
 using static Simulator.Directions;
+
 
 namespace Simulator;
 
@@ -57,7 +59,7 @@ internal class Program
 
         }
     }
-    static void Lab5()
+    static void Lab5a()
     {
         Rectangle c = new(-1, -3, 5, 10);
         Point p = new(1, 2);
@@ -79,13 +81,27 @@ internal class Program
         
 
     }
+    static void Lab5b()
+    {
+        SmallSquareMap c = new (10);
+        Point p = new(5, 9);
 
+        Console.WriteLine(c.Exist(p));
+
+        Console.WriteLine(c.Next(p, Direction.Down));
+
+        Console.WriteLine(c.NextDiagonal(p, Direction.Up));
+
+
+
+
+    }
 
 
 
     static void Main(string[] args)
     {
-        Lab5();
+        Lab5b();
     }
 
 
