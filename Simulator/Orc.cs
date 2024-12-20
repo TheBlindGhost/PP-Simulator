@@ -35,7 +35,6 @@ public class Orc : Creatures
 
     public void Hunt()
     {
-        Console.WriteLine($"{Name} is hunting.");
         hunt++;
         if (hunt % 2 == 0 && hunt != 0 && rage < 10)
         {
@@ -45,13 +44,12 @@ public class Orc : Creatures
 
 
 
-    public override void SayHi() => Console.WriteLine(
-    $"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.");
+    public override string Greeting() => $"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}.";
 
-    public override void Power()
+    public override int Power()
     {
         Pow = (Level * 7) + (3 * Rage);
-        Console.WriteLine(Pow);
+        return Pow;
     }
 
     public override string Info()

@@ -63,31 +63,30 @@ public abstract class Creatures
 
     public abstract string Info();
 
-    public abstract void SayHi();
+    public abstract string Greeting();
 
-    public abstract void Power();
+    public abstract int Power();
     public void Upgrade()
     {
         if (level < 10) { level += 1; }
 
     }
 
-    public void Go(Direction direction)
+    public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
+
+    public string Go(Direction[] direction)
     {
-        Console.WriteLine($"{Name} goes {direction.ToString().ToLower()}.");
-    }
-    public void Go(Direction[] direction)
-    {
+        string dir = "";
         foreach (var Directions in direction)
         {
-            Go(Directions);
+            dir += Go(Directions);
         }
-
+        return dir;
     }
-    public void Go(string directions)
+    public string Go(string directions)
     {
         var parse = DirectionParser.Parse(directions);
-        Go(parse);
+        return Go(parse);
     }
 
 

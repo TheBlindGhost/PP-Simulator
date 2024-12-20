@@ -28,19 +28,18 @@ public class Elf : Creatures
 
     public void Sing()
     {
-        Console.WriteLine($"{Name} is singing.");
         sing ++;
         if (sing % 3 == 0 && sing != 0 && agility < 10) 
         {
             agility++;
         }
     }
-    public override void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}.");
+    public override string Greeting() => $"Hi, I'm {Name}, my level is {Level}, my agility is {Agility}.";
 
-    public override void Power()
+    public override int Power()
     {
         Pow = (Level * 8) + (2 * Agility);
-        Console.WriteLine(Pow);
+        return Pow;
     }
 
     public override string Info()
