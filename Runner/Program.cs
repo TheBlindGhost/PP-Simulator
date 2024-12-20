@@ -84,8 +84,8 @@ internal class Program
     }
     static void Lab5b()
     {
-        SmallSquareMap c = new (10);
-        Point p = new(5, 9);
+        SmallTorusMap c = new (5);
+        Point p = new(3, 4);
 
         Console.WriteLine(c.Exist(p));
 
