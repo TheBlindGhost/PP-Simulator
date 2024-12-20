@@ -1,4 +1,5 @@
-﻿using static Simulator.Directions;
+﻿using static Simulator.Creatures;
+using static Simulator.Directions;
 
 namespace Simulator;
 
@@ -56,12 +57,35 @@ internal class Program
 
         }
     }
+    static void Lab5()
+    {
+        Rectangle c = new(-1, -3, 5, 10);
+        Point p = new(1, 2);
+        Console.WriteLine(c.Contains(p));
+
+
+        Rectangle b = new(1, 3, -5, -10);
+        Console.WriteLine(b.ToString());
+
+        try
+        {
+            Rectangle d = new(1, 1, 1, 1);
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+        
+
+    }
+
+
 
 
     static void Main(string[] args)
     {
-
-        Lab4b();
+        Lab5();
     }
 
 
