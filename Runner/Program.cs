@@ -1,6 +1,7 @@
 ﻿
 
 
+using System.Runtime.InteropServices;
 using Simulator;
 using Simulator.Map;
 using static Simulator.Creatures;
@@ -102,7 +103,8 @@ internal class Program
 
     static void Main(string[] args)
     {
-        Lab5b();
+        var p = new Rectangle(2, 5, 20, 15);
+        Console.WriteLine(p.Y2);
     }
 
 

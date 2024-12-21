@@ -21,7 +21,7 @@ public class SmallSquareMap : Map
 
     public override bool Exist(Creatures.Point p)
     {
-        Rectangle m = new(0,0, Size - 1, Size - 1);
+        Rectangle m = new(0,0, Size, Size );
         return m.Contains(p);
     }
 
