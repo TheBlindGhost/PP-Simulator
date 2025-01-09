@@ -4,24 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Simulator.Creatures;
+using static Simulator.Directions;
 
 
-namespace Simulator.Map;
+namespace Simulator.Maps;
 
-public abstract class SmallMap : Map
+public class SmallSquareMap : SmallMap
 {
-    private readonly int SizeX;
-    private readonly int SizeY;
-
-    public SmallMap(int sizeX, int sizeY) : base(sizeX, sizeY)
+    public SmallSquareMap(int size) : base(size, size)
     {
-        if (sizeX > 20 || sizeY > 20)
-            throw new ArgumentOutOfRangeException("Map dimensions must be at least 20x20.");
-
-        SizeX = sizeX;
-        SizeY = sizeY;
-
     }
+
 
     public override bool Exist(Creatures.Point p)
     {
@@ -36,10 +29,12 @@ public abstract class SmallMap : Map
 
 
     }
+
     public override Creatures.Point NextDiagonal(Creatures.Point p, Directions.Direction d)
     {
         if (Exist(p.NextDiagonal(d))) { return p.NextDiagonal(d); }
         else return p;
     }
 }
+
 

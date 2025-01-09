@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Simulator;
-using Simulator.Map;
+using Simulator.Maps;
 using static Simulator.Creatures;
 
 namespace TestSimulator;

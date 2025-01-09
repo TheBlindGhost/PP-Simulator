@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Simulator.Map;
+using Simulator.Maps;
 using static Simulator.Directions;
 using static Simulator.Creatures;
 

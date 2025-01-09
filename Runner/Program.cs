@@ -3,7 +3,7 @@
 
 using System.Runtime.InteropServices;
 using Simulator;
-using Simulator.Map;
+using Simulator.Maps;
 using static Simulator.Creatures;
 using static Simulator.Directions;
 

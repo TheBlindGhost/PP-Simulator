@@ -1,8 +1,8 @@
 ﻿
 using System.ComponentModel.Design;
 using System.Reflection.Metadata.Ecma335;
+using Simulator.Maps;
 using static Simulator.Directions;
-
 namespace Simulator;
 
 public abstract class Creatures
@@ -11,6 +11,22 @@ public abstract class Creatures
     private string name = "Unknown";
     private int level = 1;
     private int power = 0;
+    public Map? CurrentMap { get; private set; } = null;
+    public Point Position { get; private set; }
+
+
+    public void AssignMap(Map map, Point position )
+    {
+        if (CurrentMap != null)
+            throw new InvalidOperationException("Creature already assigned");
+        CurrentMap = map;
+        Position = position;
+
+        map.Add(this, position);
+    }
+
+
+
 
     public override string ToString()
     {
@@ -72,21 +88,21 @@ public abstract class Creatures
 
     }
 
-    public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
+    public void Go(Direction direction)
+    {
+        if (CurrentMap == null)
+            throw new InvalidOperationException("No map selected");
 
-    public string Go(Direction[] direction)
-    {
-        string dir = "";
-        foreach (var Directions in direction)
-        {
-            dir += Go(Directions);
-        }
-        return dir;
-    }
-    public string Go(string directions)
-    {
-        var parse = DirectionParser.Parse(directions);
-        return Go(parse.ToArray());
+        Point newPosition = CurrentMap.Next(Position, direction);
+        
+        CurrentMap.Move(Position, newPosition, this);
+        
+        Position = newPosition;
+
+       
+
+
+
     }
 
 

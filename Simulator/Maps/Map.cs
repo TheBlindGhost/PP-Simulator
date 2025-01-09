@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Simulator.Creatures;
 using static Simulator.Directions;
 
-namespace Simulator.Map;
+namespace Simulator.Maps;
 
 /// <summary>
 /// Map of points.
@@ -17,6 +18,27 @@ public abstract class Map
     public int SizeY { get; }
 
     public readonly Rectangle mapArea;
+
+    public abstract void Add(Creatures creature,Point position);
+    public abstract void Del(Creatures creature, Point position);
+
+    public void Move(Point from, Point to, Creatures creature)
+    {
+                if (!mapArea.Contains(from) || !mapArea.Contains(to))
+        {
+            throw new ArgumentOutOfRangeException("Punkty muszą znajdować się w obrębie mapy.");
+        }
+
+
+        Del(creature, from);
+        Add(creature, to);
+
+    }
+
+    public abstract List<Creatures> At(Point point);
+
+    public abstract List<Creatures> At(int x, int y);
+
     protected Map(int sizeX, int sizeY)
     {
         if (sizeX < 5 || sizeY < 5)
@@ -30,7 +52,7 @@ public abstract class Map
         new Rectangle(0, 0, SizeX - 1, SizeY - 1);
     }
 
-
+    
 
 
     /// <summary>

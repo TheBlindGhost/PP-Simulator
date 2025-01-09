@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simulator.Map;
+namespace Simulator.Maps;
 
 public class SmallTorusMap : SmallMap
 {
@@ -13,8 +13,6 @@ public class SmallTorusMap : SmallMap
     public SmallTorusMap(int size) : base(size, size)
     {
     }
-
-
 
 
     public override bool Exist(Creatures.Point p)
