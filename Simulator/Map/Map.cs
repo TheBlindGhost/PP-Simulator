@@ -13,6 +13,26 @@ namespace Simulator.Map;
 /// </summary>
 public abstract class Map
 {
+    public int SizeX { get; }
+    public int SizeY { get; }
+
+    public readonly Rectangle mapArea;
+    protected Map(int sizeX, int sizeY)
+    {
+        if (sizeX < 5 || sizeY < 5)
+        {
+            throw new ArgumentOutOfRangeException("Map dimensions must be at least 5x5.");
+        }
+
+        SizeX = sizeX;
+        SizeY = sizeY;
+
+        new Rectangle(0, 0, SizeX - 1, SizeY - 1);
+    }
+
+
+
+
     /// <summary>
     /// Check if give point belongs to the map.
     /// </summary>

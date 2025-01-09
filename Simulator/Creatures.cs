@@ -86,7 +86,7 @@ public abstract class Creatures
     public string Go(string directions)
     {
         var parse = DirectionParser.Parse(directions);
-        return Go(parse);
+        return Go(parse.ToArray());
     }
 
 

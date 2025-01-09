@@ -103,8 +103,7 @@ internal class Program
 
     static void Main(string[] args)
     {
-        var p = new Rectangle(2, 5, 20, 15);
-        Console.WriteLine(p.Y2);
+
     }
 
 
