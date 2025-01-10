@@ -88,21 +88,29 @@ public abstract class Creatures
 
     }
 
+    public void Move(Direction direction)
+    {
+        if (CurrentMap == null)
+            return;
+
+        var newPosition = CurrentMap.Next(Position, direction);
+        if (CurrentMap is SmallMap smallMap)
+        {
+            smallMap.Move(Position, newPosition,this);
+        }
+        Position = newPosition;
+    }
     public void Go(Direction direction)
     {
         if (CurrentMap == null)
-            throw new InvalidOperationException("No map selected");
+            return;
 
-        Point newPosition = CurrentMap.Next(Position, direction);
-        
-        CurrentMap.Move(Position, newPosition, this);
-        
+        var newPosition = CurrentMap.Next(Position, direction);
+        if (CurrentMap is SmallMap smallMap)
+        {
+            smallMap.Move(Position, newPosition, this);
+        }
         Position = newPosition;
-
-       
-
-
-
     }
 
 
@@ -118,8 +126,8 @@ public abstract class Creatures
             {
                 case Direction.Right: return new Point(X + 1, Y);
                 case Direction.Left: return new Point(X - 1, Y);
-                case Direction.Up: return new Point(X, Y + 1);
-                case Direction.Down: return new Point(X, Y - 1);
+                case Direction.Up: return new Point(X, Y - 1);
+                case Direction.Down: return new Point(X, Y + 1);
                 default: return new Point(X, Y);
             }
 

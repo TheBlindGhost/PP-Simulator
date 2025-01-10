@@ -24,11 +24,6 @@ public abstract class Map
 
     public void Move(Point from, Point to, Creatures creature)
     {
-                if (!mapArea.Contains(from) || !mapArea.Contains(to))
-        {
-            throw new ArgumentOutOfRangeException("Punkty muszą znajdować się w obrębie mapy.");
-        }
-
 
         Del(creature, from);
         Add(creature, to);

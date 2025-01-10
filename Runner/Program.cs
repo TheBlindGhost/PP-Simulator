@@ -2,6 +2,7 @@
 
 
 using System.Runtime.InteropServices;
+using SimConsole;
 using Simulator;
 using Simulator.Maps;
 using static Simulator.Creatures;
@@ -103,6 +104,7 @@ internal class Program
 
     static void Main(string[] args)
     {
+       Console.WriteLine("test");
 
     }
 

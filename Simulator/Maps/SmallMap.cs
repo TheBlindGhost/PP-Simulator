@@ -13,9 +13,9 @@ public abstract class SmallMap : Map
     private readonly int SizeX;
     private readonly int SizeY;
     public readonly List<Creatures>?[,] fields;
+    private readonly Dictionary<Point, List<Creatures>> _creaturePositions = new();
 
-
- public SmallMap(int sizeX, int sizeY) : base(sizeX, sizeY)
+    public SmallMap(int sizeX, int sizeY) : base(sizeX, sizeY)
     {
         if (sizeX > 20 || sizeY > 20)
             throw new ArgumentOutOfRangeException("Map dimensions must be at least 20x20.");
@@ -29,30 +29,33 @@ public abstract class SmallMap : Map
 
     public override void Add(Creatures creature, Point position)
     {
-        if (!Exist(position))
-            throw new ArgumentException("Point not on the map");
-        if (fields[position.X, position.Y] == null)
+
+        if (!_creaturePositions.ContainsKey(position))
         {
-            fields[position.X, position.Y] = new List<Creatures>();
+            _creaturePositions[position] = new List<Creatures>();
         }
-        fields[position.X, position.Y].Add(creature);
+
+        _creaturePositions[position].Add(creature);
     }
+
 
 
     public override void Del(Creatures creature, Point position)
     {
-        if (!Exist(position))
-            throw new ArgumentException("Point not on the map");
-        if (fields[position.X, position.Y] != null)
+        if (_creaturePositions.ContainsKey(position))
         {
-            fields[position.X, position.Y].Remove(creature);
+            _creaturePositions[position].Remove(creature);
+            if (_creaturePositions[position].Count == 0)
+            {
+                _creaturePositions.Remove(position);
+            }
         }
     }
 
     public override List<Creatures> At(Point point)
     {
 
-        return fields[point.X, point.Y] ?? new List<Creatures>();
+        return _creaturePositions.ContainsKey(point) ? _creaturePositions[point] : new List<Creatures>();
     }
 
     public override List<Creatures> At(int x, int y)

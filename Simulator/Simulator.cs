@@ -54,7 +54,7 @@ public class Simulation
     /// </summary>
     public string CurrentMoveName
     {
-        get{ return Moves[CurrentCreatureMove].ToString().ToLower(); ; }
+        get{ return Moves[CurrentCreatureMove].ToString().ToLower(); }
     }
 
     /// <summary>
@@ -69,10 +69,12 @@ public class Simulation
     {
 
 
-        if (Creatures.Count == 0)
+        if (creatures.Count == 0)
+        {
             throw new ArgumentNullException("No creatures");
+        }
 
-        if (positions.Count != Creatures.Count)
+        if (positions.Count != creatures.Count)
             throw new ArgumentException("Amount of creatures and starting points is different");
 
         Map = map;
@@ -94,33 +96,25 @@ public class Simulation
     /// Makes one move of current creature in current direction.
     /// Throw error if simulation is finished.
     /// </summary>
-    public void Turn() {
 
+    public void Turn()
+    {
         if (Finished)
-            throw new InvalidOperationException("End of simulation");
+            throw new InvalidOperationException("Simulation is finished.");
 
+        var directions = DirectionParser.Parse(CurrentMoveName);
+        if (directions.Count == 0)
+            throw new InvalidOperationException("Invalid move in the sequence.");
 
+        var direction = directions[0];
 
-
-
-
-        Creatures creature = CurrentCreature;
-        Direction direction = DirectionParser.Parse(Moves)[CurrentCreatureMove];
-        creature.Go(direction);
-
+       
+        CurrentCreature.Go(direction);
         CurrentCreatureIndex++;
-
+        CurrentCreatureMove++;
+        if (CurrentCreatureIndex == Creatures.Count) { CurrentCreatureIndex = 0; }
 
         if (CurrentCreatureMove >= Moves.Length)
-        {
             Finished = true;
-        }
-
-
-        if (CurrentCreatureIndex >= Creatures.Count)
-        {
-            CurrentCreatureIndex = 0;
-        }
-    
     }
 }
