@@ -67,8 +67,7 @@ public abstract class SmallMap : Map
 
     public override bool Exist(Point p)
     {
-        Rectangle m = new(0, 0, SizeX, SizeY);
-        return m.Contains(p);
+        return p.X >= 1 && p.X < SizeX+1 && p.Y >= 1 && p.Y < SizeY+1;
     }
 
     public override Point Next(Point p, Directions.Direction d)

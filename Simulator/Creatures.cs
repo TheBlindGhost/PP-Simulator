@@ -8,6 +8,8 @@ namespace Simulator;
 public abstract class Creatures : IMappable
 {
 
+    public virtual char Symbol => 'C';
+
     private string name = "Unknown";
     private int level = 1;
     private int power = 0;
@@ -141,10 +143,10 @@ public abstract class Creatures : IMappable
         {
             switch (direction)
             {
-                case Direction.Right: return new Point(X + 1, Y - 1);
-                case Direction.Left: return new Point(X - 1, Y + 1);
-                case Direction.Up: return new Point(X + 1, Y + 1);
-                case Direction.Down: return new Point(X - 1, Y - 1);
+                case Direction.Right: return new Point(X + 1, Y + 1);
+                case Direction.Left: return new Point(X - 1, Y - 1);
+                case Direction.Up: return new Point(X + 1, Y - 1);
+                case Direction.Down: return new Point(X - 1, Y + 1);
                 default: return new Point(X, Y);
             }
         }

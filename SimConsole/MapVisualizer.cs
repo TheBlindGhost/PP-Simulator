@@ -3,6 +3,7 @@ using Simulator;
 using Simulator.Maps;
 using static Simulator.Creatures;
 
+
 namespace SimConsole;
 
 
@@ -31,11 +32,11 @@ public class MapVisualizer
 
 
 
-        for (int i = 1; i < _map.SizeX+1; i++)
+        for (int i = 1; i < _map.SizeY+1; i++)
         {
      
 
-            for (int j = 1; j < _map.SizeY+1; j++)
+            for (int j = 1; j < _map.SizeX+1; j++)
             {
                 Console.Write(Box.Vertical);
                 Point point = new Point(j, i);
@@ -44,11 +45,9 @@ public class MapVisualizer
                 {
                     case 1:
                         var creature = creatures[0];
-                        if (creature is Orc)
-                            Console.Write("O");
-                        else if (creature is Elf)
-                            Console.Write("E");
+                        Console.Write(creature.Symbol);
                         break;
+                            
                     case 2:
                         Console.Write("X");
                         break;
@@ -62,10 +61,12 @@ public class MapVisualizer
             }
             Console.Write(Box.Vertical);
             Console.WriteLine();
-            if (i < _map.SizeX)
+            
+            
+            if (i < _map.SizeY)
             {
                 Console.Write(Box.MidLeft);
-                for (int j = 0; j < _map.SizeY-1; j++)
+                for (int j = 1; j < _map.SizeX; j++)
                 {
                     Console.Write(Box.Horizontal);
                     Console.Write(Box.Cross);

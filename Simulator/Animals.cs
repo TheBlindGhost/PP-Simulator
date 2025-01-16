@@ -1,16 +1,29 @@
 ﻿
 
+using System;
 using System.Reflection.Emit;
 using System.Xml.Linq;
+using Simulator.Maps;
+using static Simulator.Creatures;
 
 namespace Simulator;
 
-public class Animals
+public class Animals : IMappable
 {
+
+    public virtual char Symbol => 'A';
+
     private string description = "Unknown";
+    public Point Position { get; set; }
+    public Map CurrentMap { get; set; }
 
+    public string Name { get; set; }
 
-        public override string ToString()
+    public Animals(string name, int level = 1)
+    {
+        Name = name;
+    }
+    public override string ToString()
     {
         Type objtype = this.GetType();
         string temp = objtype.Name;
@@ -19,8 +32,33 @@ public class Animals
         return value;   
     }
 
+    public void AssignMap(Map map, Creatures.Point point)
+    {
+        CurrentMap = map;
+        Position = point;
+        map.Add(this, point);
+    }
 
-    public required string Description {
+    public virtual string Go(Directions.Direction direction)
+    {
+        if (CurrentMap == null)
+            throw new InvalidOperationException("No map chosen");
+
+        var newPosition = CurrentMap.Next(Position, direction);
+
+        CurrentMap.Move(Position, newPosition, this);
+
+        Position = newPosition;
+
+        return $"{direction.ToString().ToLower()}";
+    }
+
+    public Creatures.Point GetPos()
+    {
+        return Position;
+    }
+
+    public string Description {
         get { return description; }
         init
         {
