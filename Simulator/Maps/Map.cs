@@ -19,20 +19,20 @@ public abstract class Map
 
     public readonly Rectangle mapArea;
 
-    public abstract void Add(Creatures creature,Point position);
-    public abstract void Del(Creatures creature, Point position);
+    public abstract void Add(IMappable inter,Point position);
+    public abstract void Del(IMappable inter, Point position);
 
-    public void Move(Point from, Point to, Creatures creature)
+    public void Move(Point from, Point to, IMappable inter)
     {
 
-        Del(creature, from);
-        Add(creature, to);
+        Del(inter, from);
+        Add(inter, to);
 
     }
 
-    public abstract List<Creatures> At(Point point);
+    public abstract List<IMappable> At(Point point);
 
-    public abstract List<Creatures> At(int x, int y);
+    public abstract List<IMappable> At(int x, int y);
 
     protected Map(int sizeX, int sizeY)
     {

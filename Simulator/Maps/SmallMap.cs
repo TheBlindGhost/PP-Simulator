@@ -12,8 +12,8 @@ public abstract class SmallMap : Map
 {
     private readonly int SizeX;
     private readonly int SizeY;
-    public readonly List<Creatures>?[,] fields;
-    private readonly Dictionary<Point, List<Creatures>> _creaturePositions = new();
+    public readonly List<IMappable>?[,] fields;
+    private readonly Dictionary<Point, List<IMappable>> _creaturePositions = new();
 
     public SmallMap(int sizeX, int sizeY) : base(sizeX, sizeY)
     {
@@ -23,28 +23,28 @@ public abstract class SmallMap : Map
         SizeX = sizeX;
         SizeY = sizeY;
 
-        fields = new List<Creatures>?[sizeX, sizeY];
+        fields = new List<IMappable>?[sizeX, sizeY];
 
     }
 
-    public override void Add(Creatures creature, Point position)
+    public override void Add(IMappable inter, Point position)
     {
 
         if (!_creaturePositions.ContainsKey(position))
         {
-            _creaturePositions[position] = new List<Creatures>();
+            _creaturePositions[position] = new List<IMappable>();
         }
 
-        _creaturePositions[position].Add(creature);
+        _creaturePositions[position].Add(inter);
     }
 
 
 
-    public override void Del(Creatures creature, Point position)
+    public override void Del(IMappable inter, Point position)
     {
         if (_creaturePositions.ContainsKey(position))
         {
-            _creaturePositions[position].Remove(creature);
+            _creaturePositions[position].Remove(inter);
             if (_creaturePositions[position].Count == 0)
             {
                 _creaturePositions.Remove(position);
@@ -52,33 +52,33 @@ public abstract class SmallMap : Map
         }
     }
 
-    public override List<Creatures> At(Point point)
+    public override List<IMappable> At(Point point)
     {
 
-        return _creaturePositions.ContainsKey(point) ? _creaturePositions[point] : new List<Creatures>();
+        return _creaturePositions.ContainsKey(point) ? _creaturePositions[point] : new List<IMappable>();
     }
 
-    public override List<Creatures> At(int x, int y)
+    public override List<IMappable> At(int x, int y)
     {
         return At(new Point(x, y));
     }
 
 
 
-    public override bool Exist(Creatures.Point p)
+    public override bool Exist(Point p)
     {
         Rectangle m = new(0, 0, SizeX, SizeY);
         return m.Contains(p);
     }
 
-    public override Creatures.Point Next(Creatures.Point p, Directions.Direction d)
+    public override Point Next(Point p, Directions.Direction d)
     {
         if (Exist(p.Next(d))) { return p.Next(d); }
         else return p;
 
 
     }
-    public override Creatures.Point NextDiagonal(Creatures.Point p, Directions.Direction d)
+    public override Point NextDiagonal(Point p, Directions.Direction d)
     {
         if (Exist(p.NextDiagonal(d))) { return p.NextDiagonal(d); }
         else return p;

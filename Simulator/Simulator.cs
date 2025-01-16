@@ -11,7 +11,7 @@ namespace Simulator;
 
 public class Simulation
 {
-    private int CurrentCreatureIndex = 0;
+    private int CurrentMappableIndex = 0;
     private int CurrentCreatureMove = 0;
     /// <summary>
     /// Simulation's map.
@@ -21,7 +21,7 @@ public class Simulation
     /// <summary>
     /// Creatures moving on the map.
     /// </summary>
-    public List<Creatures> Creatures { get; }
+    public List<IMappable> Mappables { get; }
 
     /// <summary>
     /// Starting positions of creatures.
@@ -45,8 +45,8 @@ public class Simulation
     /// <summary>
     /// Creature which will be moving current turn.
     /// </summary>
-    public Creatures CurrentCreature {
-        get {  return Creatures[CurrentCreatureIndex]; }
+    public IMappable CurrentMappable {
+        get {  return Mappables[CurrentMappableIndex]; }
     }
 
     /// <summary>
@@ -64,30 +64,30 @@ public class Simulation
     /// if number of creatures differs from 
     /// number of starting positions.
     /// </summary>
-    public Simulation(Map map, List<Creatures> creatures,
+    public Simulation(Map map, List<IMappable> mappables,
         List<Point> positions, string moves)
     {
 
 
-        if (creatures.Count == 0)
+        if (mappables.Count == 0)
         {
             throw new ArgumentNullException("No creatures");
         }
 
-        if (positions.Count != creatures.Count)
+        if (positions.Count != mappables.Count)
             throw new ArgumentException("Amount of creatures and starting points is different");
 
         Map = map;
-        Creatures = creatures;
+        Mappables = mappables;
         Positions = positions;
         Moves = moves;
 
 
 
-        for (int i = 0; i < creatures.Count; i++)
+        for (int i = 0; i < mappables.Count; i++)
         {
 
-            creatures[i].AssignMap(map, positions[i]);
+            Mappables[i].AssignMap(map, positions[i]);
 
         }
     }
@@ -109,10 +109,10 @@ public class Simulation
         var direction = directions[0];
 
        
-        CurrentCreature.Go(direction);
-        CurrentCreatureIndex++;
+        CurrentMappable.Go(direction);
+        CurrentMappableIndex++;
         CurrentCreatureMove++;
-        if (CurrentCreatureIndex == Creatures.Count) { CurrentCreatureIndex = 0; }
+        if (CurrentMappableIndex == Mappables.Count) { CurrentMappableIndex = 0; }
 
         if (CurrentCreatureMove >= Moves.Length)
             Finished = true;

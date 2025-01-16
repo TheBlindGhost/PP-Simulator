@@ -5,7 +5,7 @@ using Simulator.Maps;
 using static Simulator.Directions;
 namespace Simulator;
 
-public abstract class Creatures
+public abstract class Creatures : IMappable
 {
 
     private string name = "Unknown";
@@ -100,19 +100,22 @@ public abstract class Creatures
         }
         Position = newPosition;
     }
-    public void Go(Direction direction)
+    public string Go(Direction direction)
     {
         if (CurrentMap == null)
-            return;
+            throw new InvalidOperationException("No map chosen");
 
         var newPosition = CurrentMap.Next(Position, direction);
-        if (CurrentMap is SmallMap smallMap)
-        {
-            smallMap.Move(Position, newPosition, this);
-        }
+      
+        CurrentMap.Move(Position, newPosition, this);
+        
         Position = newPosition;
+
+        return $"{direction.ToString().ToLower()}";
     }
 
+
+    public Point GetPos() => Position;
 
     public readonly struct Point
     {

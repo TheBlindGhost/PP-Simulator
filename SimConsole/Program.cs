@@ -12,7 +12,7 @@ internal class Program
 
         Console.OutputEncoding = Encoding.UTF8;
         SmallSquareMap map = new(5);
-        List<Creatures> creatures = [new Orc("Gorbag"), new Elf("Elandor")];
+        List<IMappable> creatures = [new Orc("Gorbag"), new Elf("Elandor")];
         List<Point> points = [new(3, 3), new(4, 4)];
         string moves = "dlrludl";
 
@@ -32,7 +32,7 @@ internal class Program
 
             Console.ReadKey();
 
-            Console.WriteLine($"{simulation.CurrentCreature} {simulation.CurrentCreature.Position} goes {simulation.CurrentMoveName}:");
+            Console.WriteLine($"{simulation.CurrentMappable} {simulation.CurrentMappable.GetPos} goes {simulation.CurrentMoveName}:");
 
             simulation.Turn();
             
