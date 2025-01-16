@@ -27,62 +27,6 @@ public abstract class SmallMap : Map
 
     }
 
-    public override void Add(IMappable inter, Point position)
-    {
-
-        if (!_creaturePositions.ContainsKey(position))
-        {
-            _creaturePositions[position] = new List<IMappable>();
-        }
-
-        _creaturePositions[position].Add(inter);
-    }
-
-
-
-    public override void Del(IMappable inter, Point position)
-    {
-        if (_creaturePositions.ContainsKey(position))
-        {
-            _creaturePositions[position].Remove(inter);
-            if (_creaturePositions[position].Count == 0)
-            {
-                _creaturePositions.Remove(position);
-            }
-        }
-    }
-
-    public override List<IMappable> At(Point point)
-    {
-
-        return _creaturePositions.ContainsKey(point) ? _creaturePositions[point] : new List<IMappable>();
-    }
-
-    public override List<IMappable> At(int x, int y)
-    {
-        return At(new Point(x, y));
-    }
-
-
-
-    public override bool Exist(Point p)
-    {
-        return p.X >= 1 && p.X < SizeX+1 && p.Y >= 1 && p.Y < SizeY+1;
-    }
-
-    public override Point Next(Point p, Directions.Direction d)
-    {
-        if (Exist(p.Next(d))) { return p.Next(d); }
-        else return p;
-
-
-    }
-    public override Point NextDiagonal(Point p, Directions.Direction d)
-    {
-        if (Exist(p.NextDiagonal(d))) { return p.NextDiagonal(d); }
-        else return p;
-    }
-
 
 }
 

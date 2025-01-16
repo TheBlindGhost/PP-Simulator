@@ -19,8 +19,9 @@ public abstract class Map
 
     public readonly Rectangle mapArea;
 
-    public abstract void Add(IMappable inter,Point position);
-    public abstract void Del(IMappable inter, Point position);
+    public readonly List<IMappable>?[,] fields;
+    private readonly Dictionary<Point, List<IMappable>> _creaturePositions = new();
+
 
     public void Move(Point from, Point to, IMappable inter)
     {
@@ -30,9 +31,7 @@ public abstract class Map
 
     }
 
-    public abstract List<IMappable> At(Point point);
 
-    public abstract List<IMappable> At(int x, int y);
 
     protected Map(int sizeX, int sizeY)
     {
@@ -44,33 +43,63 @@ public abstract class Map
         SizeX = sizeX;
         SizeY = sizeY;
 
-        new Rectangle(0, 0, SizeX - 1, SizeY - 1);
     }
 
-    
 
 
-    /// <summary>
-    /// Check if give point belongs to the map.
-    /// </summary>
-    /// <param name="p">Point to check.</param>
-    /// <returns></returns>
-    public abstract bool Exist(Point p);
 
-    /// <summary>
-    /// Next position to the point in a given direction.
-    /// </summary>
-    /// <param name="p">Starting point.</param>
-    /// <param name="d">Direction.</param>
-    /// <returns>Next point.</returns>
-    public abstract Point Next(Point p, Direction d);
+    public void Add(IMappable inter, Point position)
+    {
 
-    /// <summary>
-    /// Next diagonal position to the point in a given direction 
-    /// rotated 45 degrees clockwise.
-    /// </summary>
-    /// <param name="p">Starting point.</param>
-    /// <param name="d">Direction.</param>
-    /// <returns>Next point.</returns>
-    public abstract Point NextDiagonal(Point p, Direction d);
+        if (!_creaturePositions.ContainsKey(position))
+        {
+            _creaturePositions[position] = new List<IMappable>();
+        }
+
+        _creaturePositions[position].Add(inter);
+    }
+
+
+
+    public void Del(IMappable inter, Point position)
+    {
+        if (_creaturePositions.ContainsKey(position))
+        {
+            _creaturePositions[position].Remove(inter);
+            if (_creaturePositions[position].Count == 0)
+            {
+                _creaturePositions.Remove(position);
+            }
+        }
+    }
+
+    public List<IMappable> At(Point point)
+    {
+
+        return _creaturePositions.ContainsKey(point) ? _creaturePositions[point] : new List<IMappable>();
+    }
+
+    public List<IMappable> At(int x, int y)
+    {
+        return At(new Point(x, y));
+    }
+
+    public virtual bool Exist(Point p)
+    {
+        return p.X >= 1 && p.X < SizeX + 1 && p.Y >= 1 && p.Y < SizeY + 1;
+    }
+
+    public virtual Point Next(Point p, Directions.Direction d)
+    {
+        if (Exist(p.Next(d))) { return p.Next(d); }
+        else return p;
+
+
+    }
+    public virtual Point NextDiagonal(Point p, Directions.Direction d)
+    {
+        if (Exist(p.NextDiagonal(d))) { return p.NextDiagonal(d); }
+        else return p;
+    }
+
 }
