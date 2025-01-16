@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using static Simulator.Creatures;
 namespace Simulator;
 
-internal class SimulationTurnLog
+public class SimulationTurnLog
 {
 
         /// <summary>

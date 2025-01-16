@@ -7,7 +7,7 @@ using Simulator.Maps;
 using static Simulator.Creatures;
 namespace Simulator;
 
-internal class SimulationHistory
+public class SimulationHistory
 {
 
         private Simulation _simulation { get; }
@@ -59,4 +59,4 @@ internal class SimulationHistory
 
 
 
-}
+
